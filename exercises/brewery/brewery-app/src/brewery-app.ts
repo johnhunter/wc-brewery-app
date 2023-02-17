@@ -1,81 +1,171 @@
 import { LitElement, html, css } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 
-const logo = new URL('../../assets/open-wc-logo.svg', import.meta.url).href;
+interface Brewery {
+  id: string;
+  name: string;
+  visited?: boolean;
+}
 
+const logo = new URL('../../assets/beer-svgrepo-com.svg', import.meta.url).href;
+
+// customElement decorator defines the component
 @customElement('brewery-app')
 export class BreweryApp extends LitElement {
-  @property({ type: String }) header = 'My app';
+  @property({ type: String }) city = 'San Francisco';
+
+  @property({ type: Boolean }) loading = true;
+
+  @property({ type: Array }) breweries: Brewery[] = [];
 
   static styles = css`
     :host {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      font-size: calc(10px + 2vmin);
-      color: #1a2b42;
-      max-width: 960px;
-      margin: 0 auto;
-      text-align: center;
+      font-size: calc(1rem + 2vmin);
+      color: hsl(25deg 76% 30%);
       background-color: var(--brewery-app-background-color);
     }
 
     main {
-      flex-grow: 1;
+      padding: 2rem;
+      max-width: min-content;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem 0;
+      font-size: 1rem;
     }
 
     .logo {
-      margin-top: 36px;
-      animation: app-logo-spin infinite 20s linear;
+      width: calc(3rem + 10vmin);
     }
 
-    @keyframes app-logo-spin {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
+    .city {
+      font-size: 0.7em;
     }
 
-    .app-footer {
-      font-size: calc(12px + 0.5vmin);
-      align-items: center;
+    .breweries {
+      display: grid;
+      padding: 0;
+      grid-template-columns: max-content;
     }
 
-    .app-footer a {
-      margin-left: 5px;
+    .breweries > li {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      gap: 2rem;
+      margin: 0.5rem;
+    }
+
+    button {
+      color: inherit;
+      font-size: 1rem;
+    }
+
+    .toggle {
+      min-width: 8rem;
+      text-align: center;
+    }
+
+    .visited {
+      text-decoration: line-through;
+      color: hsl(25deg 76% 50%);
     }
   `;
 
+  connectedCallback(): void {
+    super.connectedCallback?.();
+
+    if (!this.breweries.length) {
+      this.fetchBreweries();
+    }
+  }
+
+  async fetchBreweries() {
+    // TODO: how to trigger if the city property changes?
+    this.loading = true;
+    const byCity = this.city.replace(/\s+/g, '_').toLowerCase();
+
+    const response = await fetch(
+      `https://api.openbrewerydb.org/breweries?by_city=${byCity}`
+    ).then(res => res.json());
+
+    this.breweries = response;
+    this.loading = false;
+  }
+
+  toggleVisitedStatus(breweryToUpdate: Brewery) {
+    this.breweries = this.breweries.map(brewery =>
+      brewery.id === breweryToUpdate.id
+        ? {
+            ...brewery,
+            visited: !brewery.visited,
+          }
+        : brewery
+    );
+  }
+
   render() {
+    const totalVisited = this.breweries.filter(b => b.visited).length;
+    const totalNotVisited = this.breweries.filter(b => !b.visited).length;
+
     return html`
       <main>
-        <div class="logo"><img alt="open-wc logo" src=${logo} /></div>
-        <h1>${this.header}</h1>
+        <header>
+          <img class="logo" alt="Beer glass logo" src=${logo} />
+          <h1>KewlBrews</h1>
+        </header>
 
-        <p>Edit <code>src/BreweryApp.ts</code> and save to reload.</p>
-        <a
-          class="app-link"
-          href="https://open-wc.org/guides/developing-components/code-examples"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Code examples
-        </a>
+        <h2>Breweries <span class="city">in ${this.city}</span></h2>
+
+        ${this.loading ? html`<p role="status">Loading...</p>` : ''}
+
+        <p>Visited: ${totalVisited}, Remaining: ${totalNotVisited}</p>
+
+        <ul class="breweries">
+          ${this.breweries.map(
+            brewery => html`<li>
+              <span class=${brewery.visited ? 'visited' : ''}
+                >${brewery.name}</span
+              >
+              <button
+                class="toggle"
+                @click="${() => this.toggleVisitedStatus(brewery)}"
+              >
+                ${brewery.visited ? 'Un-mark visited' : 'Mark visited'}
+              </button>
+            </li>`
+          )}
+        </ul>
+
+        <footer>
+          Powered by&nbsp;
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.openbrewerydb.org/"
+            >Open Brewery DB</a
+          >
+        </footer>
       </main>
-
-      <p class="app-footer">
-        🚽 Made with love by
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://github.com/open-wc"
-          >open-wc</a
-        >.
-      </p>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'brewery-app': BreweryApp;
   }
 }

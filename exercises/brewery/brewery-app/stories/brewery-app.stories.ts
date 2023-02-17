@@ -16,15 +16,21 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  title?: string;
+  city?: string;
   backgroundColor?: string;
 }
 
-const Template: Story<ArgTypes> = ({ title, backgroundColor = 'white' }: ArgTypes) => html`
-  <brewery-app style="--brewery-app-background-color: ${backgroundColor}" .title=${title}></brewery-app>
+const Template: Story<ArgTypes> = ({
+  city,
+  backgroundColor = 'white',
+}: ArgTypes) => html`
+  <brewery-app
+    style="--brewery-app-background-color: ${backgroundColor}"
+    .city=${city}
+  ></brewery-app>
 `;
 
 export const App = Template.bind({});
 App.args = {
-  title: 'My app',
+  city: 'San Francisco',
 };
