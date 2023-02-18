@@ -22,6 +22,7 @@ export class BreweryApp extends LitElement {
 
   static styles = css`
     :host {
+      display: block;
       font-size: calc(1rem + 2vmin);
       color: hsl(25deg 76% 30%);
       background-color: var(--brewery-app-background-color);
