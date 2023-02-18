@@ -1,5 +1,5 @@
-import { LitElement, html, css } from 'lit';
-import { property, customElement } from 'lit/decorators.js';
+import { LitElement, html, css, PropertyValues } from 'lit';
+import { property, customElement, state } from 'lit/decorators.js';
 
 interface Brewery {
   id: string;
@@ -9,14 +9,16 @@ interface Brewery {
 
 const logo = new URL('../../assets/beer-svgrepo-com.svg', import.meta.url).href;
 
-// customElement decorator defines the component
 @customElement('brewery-app')
 export class BreweryApp extends LitElement {
-  @property({ type: String }) city = 'San Francisco';
+  @property({ type: String })
+  city = 'San Francisco';
 
-  @property({ type: Boolean }) loading = true;
+  @property({ type: Boolean })
+  loading = true;
 
-  @property({ type: Array }) breweries: Brewery[] = [];
+  @state()
+  private _breweries: Brewery[] = [];
 
   static styles = css`
     :host {
@@ -88,13 +90,18 @@ export class BreweryApp extends LitElement {
   connectedCallback(): void {
     super.connectedCallback?.();
 
-    if (!this.breweries.length) {
+    if (!this._breweries.length) {
+      this.fetchBreweries();
+    }
+  }
+
+  willUpdate(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('city')) {
       this.fetchBreweries();
     }
   }
 
   async fetchBreweries() {
-    // TODO: how to trigger if the city property changes?
     this.loading = true;
     const byCity = this.city.replace(/\s+/g, '_').toLowerCase();
 
@@ -102,12 +109,12 @@ export class BreweryApp extends LitElement {
       `https://api.openbrewerydb.org/breweries?by_city=${byCity}`
     ).then(res => res.json());
 
-    this.breweries = response;
+    this._breweries = response;
     this.loading = false;
   }
 
   toggleVisitedStatus(breweryToUpdate: Brewery) {
-    this.breweries = this.breweries.map(brewery =>
+    this._breweries = this._breweries.map(brewery =>
       brewery.id === breweryToUpdate.id
         ? {
             ...brewery,
@@ -118,8 +125,8 @@ export class BreweryApp extends LitElement {
   }
 
   render() {
-    const totalVisited = this.breweries.filter(b => b.visited).length;
-    const totalNotVisited = this.breweries.filter(b => !b.visited).length;
+    const totalVisited = this._breweries.filter(b => b.visited).length;
+    const totalNotVisited = this._breweries.filter(b => !b.visited).length;
 
     return html`
       <main>
@@ -135,7 +142,7 @@ export class BreweryApp extends LitElement {
         <p>Visited: ${totalVisited}, Remaining: ${totalNotVisited}</p>
 
         <ul class="breweries">
-          ${this.breweries.map(
+          ${this._breweries.map(
             brewery => html`<li>
               <span class=${brewery.visited ? 'visited' : ''}
                 >${brewery.name}</span
