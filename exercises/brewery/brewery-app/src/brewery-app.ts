@@ -112,15 +112,10 @@ export class BreweryApp extends LitElement {
     }
   `;
 
-  connectedCallback(): void {
-    super.connectedCallback?.();
-
-    if (!this._breweries.length) {
-      this.fetchBreweries();
-    }
-  }
-
   willUpdate(changedProperties: PropertyValues<this>) {
+    // This fires for the city prop on first render
+    // (properties are initially undefined)
+    // so we don't need to fetch in connectedCallback.
     if (changedProperties.has('city')) {
       this.fetchBreweries();
     }
