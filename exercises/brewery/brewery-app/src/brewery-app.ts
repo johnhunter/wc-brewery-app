@@ -55,6 +55,12 @@ export class BreweryApp extends LitElement {
       font-size: 1rem;
     }
 
+    .intro {
+      font-size: 0.5em;
+      font-style: italic;
+      text-align: center;
+    }
+
     .logo {
       width: calc(3rem + 10vmin);
     }
@@ -153,6 +159,8 @@ export class BreweryApp extends LitElement {
           <img class="logo" alt="Beer glass logo" src=${logo} />
           <h1>KewlBrews</h1>
         </header>
+
+        <aside class="intro"><slot></slot></aside>
 
         <h2>Breweries <span class="city">in ${this.city}</span></h2>
 
