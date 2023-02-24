@@ -20,6 +20,11 @@ export class BreweryApp extends LitElement {
   @state()
   private _breweries: Brewery[] = [];
 
+  static shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true,
+  };
+
   static styles = css`
     :host {
       display: block;
@@ -75,6 +80,7 @@ export class BreweryApp extends LitElement {
     button {
       color: inherit;
       font-size: 1rem;
+      border-radius: 0.5rem;
     }
 
     .toggle {
@@ -85,6 +91,18 @@ export class BreweryApp extends LitElement {
     .visited {
       text-decoration: line-through;
       color: hsl(25deg 76% 50%);
+    }
+
+    button:focus {
+      outline: 0.25rem solid hsl(27deg 100% 50% / 20%);
+      border-radius: 0.5rem;
+    }
+
+    :focus-visible,
+    button:focus-visible {
+      outline: 0.5rem solid hsl(27deg 100% 50% / 50%);
+      outline-offset: 0.25rem;
+      border-radius: 0.5rem;
     }
   `;
 
