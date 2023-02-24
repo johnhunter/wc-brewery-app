@@ -13,6 +13,14 @@
       font-family: sans-serif;
       background-color: #ededed;
     }
+
+    /*
+      Avoid rendering slot content until the component has been defined.
+      But what about fallback?
+    */
+    brewery-app:not(:defined) {
+      visibility: hidden;
+    }
   </style>
   <title>brewery-app</title>
 </head>
