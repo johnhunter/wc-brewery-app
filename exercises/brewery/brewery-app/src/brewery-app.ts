@@ -23,6 +23,7 @@ export class BreweryApp extends LitElement {
   static shadowRootOptions = {
     ...LitElement.shadowRootOptions,
     delegatesFocus: true,
+    mode: 'closed' as const,
   };
 
   static styles = css`
