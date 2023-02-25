@@ -1,38 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background-color: #ededed;
+      }
 
-  <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: sans-serif;
-      background-color: #ededed;
-    }
+      /*
+        Avoid rendering slot content until the component has been defined.
+        But what about fallback?
+      */
+      *:not(:defined) {
+        visibility: hidden;
+      }
+    </style>
+    <title>brewery-app</title>
+  </head>
 
-    /*
-      Avoid rendering slot content until the component has been defined.
-      But what about fallback?
-    */
-    brewery-app:not(:defined) {
-      visibility: hidden;
-    }
-  </style>
-  <title>brewery-app</title>
-</head>
+  <body>
+    <brewery-app>
+      <p>
+        This is a little Web component app to tick-off the breweries we've
+        visited.
+      </p>
+    </brewery-app>
 
-<body>
-  <brewery-app>
-    <p>
-      This is a little Web component app to tick-off the breweries we've visited.
-    </p>
-  </brewery-app>
-
-  <script type="module" src="./out-tsc/src/brewery-app.js"></script>
-</body>
-
+    <script type="module" src="./out-tsc/src/brewery-app.js"></script>
+  </body>
 </html>
