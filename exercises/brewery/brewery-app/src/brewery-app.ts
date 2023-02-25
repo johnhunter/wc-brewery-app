@@ -23,7 +23,7 @@ export class BreweryApp extends LitElement {
   static shadowRootOptions = {
     ...LitElement.shadowRootOptions,
     delegatesFocus: true,
-    mode: 'closed' as const,
+    mode: 'open' as const, // closed shadowDom is hidden to tests
   };
 
   static styles = css`
@@ -126,11 +126,16 @@ export class BreweryApp extends LitElement {
     this.loading = true;
     const byCity = this.city.replace(/\s+/g, '_').toLowerCase();
 
-    const response = await fetch(
-      `https://api.openbrewerydb.org/breweries?by_city=${byCity}`
-    ).then(res => res.json());
+    try {
+      const response = await fetch(
+        `https://api.openbrewerydb.org/breweries?by_city=${byCity}`
+      ).then(res => res.json());
+      this._breweries = response;
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err);
+    }
 
-    this._breweries = response;
     this.loading = false;
   }
 

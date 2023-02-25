@@ -19,7 +19,7 @@ npm init @open-wc
 
 - `start` runs your app for development, reloading on file changes
 - `start:build` runs your app after it has been built using the build command
-- `build` builds your app and outputs it in your `dist` directory
+- `build` builds your app and outputs it in your `dist` directory, generates a cem (Custom Elements Manifest)
 - `test` runs your test suite with Web Test Runner
 - `lint` runs the linter for your project
 
