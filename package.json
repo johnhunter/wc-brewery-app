@@ -1,6 +1,6 @@
 {
-  "name": "brewery-app",
-  "description": "Webcomponent brewery-app following open-wc recommendations",
+  "name": "wc-brewery-app",
+  "description": "Web-component brewery-app following open-wc recommendations",
   "license": "MIT",
   "author": "brewery-app",
   "version": "0.0.0",
