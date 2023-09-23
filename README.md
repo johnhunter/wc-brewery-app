@@ -4,6 +4,8 @@ A POC Web-components application for tracking breweries you've visited. It uses 
 
 _Completed as part of [Dave Rupert](https://daverupert.com/)'s [Web Components course](https://frontendmasters.com/courses/web-components)_
 
+![image](https://github.com/johnhunter/wc-brewery-app/assets/219160/4d0d73ce-29ce-46e9-b626-eed2bee47376)
+
 ## The stack
 
 A TypeScript project that uses [Lit](https://lit.dev/) to build a web-component based app. Production build is provided by [Rollup](https://rollupjs.org/) and [Esbuild](https://esbuild.github.io/). The project was scaffolded using the [@open-wc](https://github.com/open-wc) starter.
