@@ -32,7 +32,7 @@
     "@typescript-eslint/parser": "^6.7.5",
     "@web/dev-server": "^0.3.4",
     "@web/dev-server-storybook": "^1.0.6",
-    "@web/rollup-plugin-html": "^1.11.0",
+    "@web/rollup-plugin-html": "^2.0.1",
     "@web/rollup-plugin-import-meta-assets": "^1.0.7",
     "@web/test-runner": "^0.14.0",
     "babel-plugin-template-html-minifier": "^4.1.0",
