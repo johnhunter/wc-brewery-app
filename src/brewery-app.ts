@@ -128,7 +128,7 @@ export class BreweryApp extends LitElement {
 
     try {
       const response = await fetch(
-        `https://api.openbrewerydb.org/breweries?by_city=${byCity}`
+        `https://api.openbrewerydb.org/breweries?by_city=${byCity}`,
       ).then(res => res.json());
       this._breweries = response;
     } catch (err) {
@@ -146,7 +146,7 @@ export class BreweryApp extends LitElement {
             ...brewery,
             visited: !brewery.visited,
           }
-        : brewery
+        : brewery,
     );
   }
 
@@ -171,17 +171,18 @@ export class BreweryApp extends LitElement {
 
         <ul class="breweries">
           ${this._breweries.map(
-            brewery => html`<li>
-              <span class=${brewery.visited ? 'visited' : ''}
-                >${brewery.name}</span
-              >
-              <button
-                class="toggle"
-                @click="${() => this.toggleVisitedStatus(brewery)}"
-              >
-                ${brewery.visited ? 'Un-mark visited' : 'Mark visited'}
-              </button>
-            </li>`
+            brewery =>
+              html`<li>
+                <span class=${brewery.visited ? 'visited' : ''}
+                  >${brewery.name}</span
+                >
+                <button
+                  class="toggle"
+                  @click="${() => this.toggleVisitedStatus(brewery)}"
+                >
+                  ${brewery.visited ? 'Un-mark visited' : 'Mark visited'}
+                </button>
+              </li>`,
           )}
         </ul>
 

@@ -15,7 +15,7 @@ describe('BreweryApp', () => {
 
   it('renders a the intro slot', async () => {
     const app: BreweryApp = await fixture(
-      html`<brewery-app><p id="intro">Some intro</p></brewery-app>`
+      html`<brewery-app><p id="intro">Some intro</p></brewery-app>`,
     );
 
     expect(app).dom.to.contain('brewery-app #intro');
@@ -34,7 +34,7 @@ describe('BreweryApp', () => {
 
   it('renders a given city', async () => {
     const app: BreweryApp = await fixture(
-      html`<brewery-app city="Los Angeles"></brewery-app>`
+      html`<brewery-app city="Los Angeles"></brewery-app>`,
     );
 
     const city = app.shadowRoot!.querySelector('.city')!;
