@@ -15,7 +15,8 @@
     "build": "rimraf dist && tsc && rollup -c rollup.config.js && npm run analyze -- --exclude dist",
     "start:build": "web-dev-server --root-dir dist --app-index index.html --open",
     "analyze": "cem analyze --litelement",
-    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\""
+    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
+    "prepare": "husky install"
   },
   "dependencies": {
     "lit": "^3.0.0"
@@ -40,9 +41,9 @@
     "deepmerge": "^4.2.2",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
-    "husky": "^8.0.3",
+    "husky": "^8.0.0",
     "lint-staged": "^14.0.1",
-    "prettier": "^2.4.1",
+    "prettier": "^3.0.3",
     "rimraf": "^5.0.5",
     "rollup": "^2.60.0",
     "rollup-plugin-esbuild": "^5.0.0",
@@ -77,11 +78,6 @@
   "prettier": {
     "singleQuote": true,
     "arrowParens": "avoid"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.ts": [
