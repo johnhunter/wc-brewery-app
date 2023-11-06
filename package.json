@@ -32,7 +32,7 @@
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.7.5",
     "@web/dev-server": "^0.3.6",
-    "@web/dev-server-storybook": "^1.0.6",
+    "@web/dev-server-storybook": "^1.1.0",
     "@web/rollup-plugin-html": "^2.0.1",
     "@web/rollup-plugin-import-meta-assets": "^2.1.0",
     "@web/test-runner": "^0.14.0",
