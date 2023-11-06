@@ -29,7 +29,7 @@
     "@open-wc/testing": "^3.1.6",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
     "@typescript-eslint/parser": "^6.7.5",
     "@web/dev-server": "^0.3.6",
     "@web/dev-server-storybook": "^1.1.0",
