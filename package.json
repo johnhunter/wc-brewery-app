@@ -31,7 +31,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
     "@typescript-eslint/parser": "^6.7.5",
-    "@web/dev-server": "^0.4.0",
+    "@web/dev-server": "^0.4.1",
     "@web/dev-server-storybook": "^1.1.0",
     "@web/rollup-plugin-html": "^2.0.1",
     "@web/rollup-plugin-import-meta-assets": "^2.2.1",
